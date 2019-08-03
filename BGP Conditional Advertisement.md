@@ -53,6 +53,8 @@ ip prefix-list PL_AS64516 seq 5 permit 10.1.1.0/24
 The route-maps applied tell the router to use ` MAP_AS64515_CONDITIONAL_OUT ` only when the conditions in ` MAP_AS64513_FROM_AS64515 ` are satisfied if the conditions are not satisfied it does the opposite of what is specified in ` MAP_AS64515_CONDITIONAL_OUT ` which in this case the opposite of ` MAP_AS64515_CONDITIONAL_OUT ` is to deny prefixes from prefix-list ` PL_AS64516` since the route map ` MAP_AS64515_CONDITIONAL_OUT ` does not have any other entries the implicit deny in the end of the route-map turns to allow all that is not matched with the prefix-list ` PL_AS64516`
 
 The configuration on the other routers is just standard BGP stuff.
+
+### AS64513
 <pre>
 <b>AS64513#sh run | se interface|route </b>
 interface FastEthernet0/0
@@ -74,6 +76,7 @@ router bgp 64513
 ip route 172.31.0.0 255.255.0.0 Null0
 </pre>
 
+### AS64515
 <pre>
 <b>AS64515#sh run | se interface|route</b>
 interface FastEthernet0/0
@@ -100,6 +103,7 @@ route-map MAP_AS64516_OUT permit 20
  description PERMIT OTHERS
 </pre>
 
+### AS64512
 <pre>
 <b>AS64512#sh run | se interface|route</b>
 interface FastEthernet0/0
