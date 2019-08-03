@@ -55,8 +55,7 @@ The route-maps applied tell the router to use ` MAP_AS64515_CONDITIONAL_OUT ` on
 The configuration on the other routers is just standard BGP stuff.
 
 ### AS64513
-<pre>
-<b>AS64513#sh run | se interface|route </b>  
+<pre>  
 interface FastEthernet0/0
  description CONNECTION TO AS64515
  ip address 10.0.0.1 255.255.255.252
@@ -77,8 +76,7 @@ ip route 172.31.0.0 255.255.0.0 Null0
 </pre>
 
 ### AS64515
-<pre>
-<b>AS64515#sh run | se interface|route</b>  
+<pre> 
 interface FastEthernet0/0
  description CONNECTION TO AS64516
  ip address 10.0.0.9 255.255.255.252
@@ -105,7 +103,6 @@ route-map MAP_AS64516_OUT permit 20
 
 ### AS64512
 <pre>
-<b>AS64512#sh run | se interface|route</b>  
 interface FastEthernet0/0
  description CONNECTION TO AS64513
  ip address 10.0.0.2 255.255.255.252
