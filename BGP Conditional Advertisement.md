@@ -44,7 +44,7 @@ ip prefix-list PL_AS64516 seq 5 permit 10.1.1.0/24
 <b>route-map MAP_AS64513_FROM_AS64515 permit 10
  description MATCH AS64513 PREFIX RECEIVED FROM AS64515
  match ip address prefix-list PL_AS64513
- match as-path 1</p>
+ match as-path 1</b>
 !
 <b>route-map MAP_AS64515_CONDITIONAL_OUT permit 10
  match ip address prefix-list PL_AS64516</b>
