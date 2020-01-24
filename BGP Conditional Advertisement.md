@@ -52,6 +52,21 @@ ip prefix-list PL_AS64516 seq 5 permit 10.1.1.0/24
 
 The route-maps applied tell the router to use ` MAP_AS64515_CONDITIONAL_OUT ` only when the conditions in ` MAP_AS64513_FROM_AS64515 ` are satisfied if the conditions are not satisfied it does the opposite of what is specified in ` MAP_AS64515_CONDITIONAL_OUT ` which in this case the opposite of ` MAP_AS64515_CONDITIONAL_OUT ` is to deny prefixes from prefix-list ` PL_AS64516` since the route map ` MAP_AS64515_CONDITIONAL_OUT ` does not have any other entries the implicit deny in the end of the route-map turns to allow all that is not matched with the prefix-list ` PL_AS64516`
 
+To achieve similar effect on a Junos device
+<pre>
+set policy-options policy-statement conditional-export-bgp term conditional from route-filter 10.1.1.0/24 exact
+set policy-options policy-statement conditional-export-bgp term conditional from condition PL_AS64513
+set policy-options policy-statement conditional-export-bgp term conditional then accept
+set policy-options policy-statement conditional-export-bgp term others then reject
+
+set policy-options condition PL_AS64513 if-route-exists 172.31.0.0/16
+set policy-options condition PL_AS64513 if-route-exists table inet.0
+</pre>
+
+The logic of the conditional export policy can be summarized as follows:
+If <code>10.1.1.0/24</code> is present, and if <code>172.31.0.0/16</code> is present, then send the <code>10.1.1.0/24</code> prefix. 
+This implies that if <code>172.31.0.0/16</code> is not present, then do not send <code>10.1.1.0/24</code>. 
+
 The configuration on the other routers is just standard BGP stuff.
 
 ### AS64513
